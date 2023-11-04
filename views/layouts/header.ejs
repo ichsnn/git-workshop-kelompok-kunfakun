@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Hoceen</title>
+	<link rel="icon" href="/img/icon.png">
+	<link rel="stylesheet" href="/css/main.css">
+	<link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/sweetalert2.css">
+	<link rel="stylesheet" href="/css/dropify.css">
+	<link rel="stylesheet" href="/css/icons.min.css">
+	<script src="/js/jquery-3.6.0.min.js"></script>
+	<script src="/js/sweetalert2.all.min.js"></script>
+	<script src="/js/sweetalert2.all.min.js"></script>
+	<script src="/js/alert.js"></script>	
+	<script src="/js/moment.js"></script>
+	<script>
+	const Toast = Swal.mixin({
+    		toast: true,
+		    position: 'top-end',
+		    showConfirmButton: false,
+		    timer: 3000
+	});
+	</script>
+</head>
+<body>
+	<nav class="navbar navbar-expand-lg navbar-light custom-nav">
+		<a class="navbar-brand custom-nav-brand" href="/">
+			<img class="logo" src="/img/logo.png" height="60px">
+		</a>
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+    	</button>
+
+		 <div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<% if(loggedIn) { %>
+				<div class="col-xl-11 text-auth">
+					<a href="/cart/<%= studentId %>" class="btn-auth outline-primary">Keranjang</a>
+					<span id="balance-box"></span>
+					<span class="dropdown">
+						<a class="btn-auth dropdown-toggle outline-primary" href="#" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">ID Siswa : <%= studentId %> </a>
+						<ul class="dropdown-menu mt-3" aria-labelledby="dropdownMenuLink">
+							<a class="outline-primary dropdown-item-costum" href="/logout">Logout</a>
+						  </ul>
+					</span>
+				</div>
+			<% } else { %>
+			<div class="col-xl-11 text-auth">
+                <a href="/login" class="btn-auth outline-primary">MASUK</a>
+                <a href="/register"class="btn-auth color-primary">DAFTAR</a>
+            </div>
+			<% } %>
+		</div>
+	</nav>

@@ -1,0 +1,24 @@
+<form id="create-form" onsubmit="return false;">
+    <div class="mb-3">
+        <label class="my-label mb-2" for="image">Gambar</label>
+        <input class="dropify" id="image" name="image" type="file" data-allowed-file-extensions="jpg png"/>
+    </div>
+    
+    <label class="my-label mb-2" for="name">Nama Barang</label>
+    <div class="mb-3 my-input">
+        <input class="my-form" id="name" name="name" type="text" required />
+    </div>
+
+    <label class="my-label mb-2" for="description">Deksripsi</label>
+    <div class="mb-3 my-input">
+        <input class="my-form" id="description" name="description" type="text" required />
+    </div>
+
+    <label class="my-label mb-2" for="price">Harga</label>
+    <div class="my-input">
+        <input class="my-form numeric comma" name="price" type="text" maxlength="12" autocomplete="off" required />
+    </div>
+    <div class="d-flex flex-row-reverse mt-3">
+        <button class="btn color-primary" type="submit">Simpan</button>
+    </div>
+</form>

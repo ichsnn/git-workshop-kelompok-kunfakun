@@ -1,0 +1,127 @@
+<%- include('./layouts/header'); %>
+<div class="py-3"></div>
+<div class="container">
+    <div class="d-flex  mb-3">
+        <span class="title">Kantin Kejujuran</span>
+    </div>
+    <section class="list">
+        <div class="list-barang mb-3">
+            <% if (loggedIn) { %>
+                <div class="row mb-3">
+                    <div class="col-md-12">
+                        <div class="search-item">
+                            <div class="search-box">
+                                <div class="search-icon">
+                                    <span>
+                                        <img src="icons/search.svg" style="display:block;width:1.7rem;height:2.0rem">
+                                    </span>
+                                </div>
+                                <form id="search-form" class="search">
+                                    <input type="text" name="search_item" class="form-control search_item" placeholder="Pencarian">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row container">
+                    <div class="col-md-2 my-input me-auto mb-4">
+                        <select name="filter" id="filter" class="my-form">
+                            <option value="terbaru">Terbaru</option>
+                            <option value="terlama">Terlama</option>
+                            <option value="a-z">A-Z</option>
+                            <option value="z-a">Z-A</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+    
+                    </div>
+                    <div class="col-md-2 ms-auto">
+                        <button class="btn-auth color-primary add-item-btn" onclick="openForm('item/create', 'create')">Tambah</button>
+                    </div>
+                </div>
+            <% } else { %>
+                <div class="row mb-3">
+                    <div class="col-md-12">
+                        <div class="search-item">
+                            <div class="search-box">
+                                <div class="search-icon">
+                                    <span>
+                                        <img src="icons/search.svg" style="display:block;width:1.7rem;height:2.0rem">
+                                    </span>
+                                </div>
+                                <form id="search-form" class="search">
+                                    <input type="text" name="search_item" class="form-control search_item" placeholder="Pencarian">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row container">
+                    <div class="col-md-2 my-input me-auto mb-4">
+                        <select name="filter" id="filter" class="my-form">
+                            <option value="terbaru">Terbaru</option>
+                            <option value="terlama">Terlama</option>
+                            <option value="a-z">A-Z</option>
+                            <option value="z-a">Z-A</option>
+                        </select>
+                    </div>
+                </div>
+            <% } %>
+        </div>
+            <div class="row container" id="kantin">
+
+            </div>
+        </div>
+    </section>
+</div>
+<%- include('./components/loading'); %>
+<script>
+    function items() {
+        $('.loading').show();
+        $('.list').hide();
+        $.ajax({
+            type: 'get',
+            url: 'item',
+            success: function (response) {
+                $('.list').show();
+                $('.loading').hide();
+                if (response.status_code == 200) {
+                    var kantinList = response.data;
+                    let kantinLi = '';
+                    if(kantinList.length > 0 ){
+                        kantinList.forEach(items => $('#kantin').html(kantinLi += `<div class="col-md-4">
+                            <div class="costum-card-list">
+                                <a onclick="openForm('/item/detail/`+items.id+`','item')" ><img class="costum-card-img" src="${items.image}"></a>
+                                <div class="card-body">
+                                    <span>${items.name}</span>
+                                    <div class="info">
+                                        <span class="datetime">${moment((items.created_at)).format('MMMM Do YYYY, HH:mm')}</span>
+                                    </div>
+                                    <div class="mb-3">
+                                        <span class="price">Rp `+addCommas((items.price))+`</span>
+                                    </div>
+                                    <% if(loggedIn) { %>
+                                        <button onClick="addToCart('`+items.id+`')" class="btn-auth outline-primary btn-add-to-cart">+ Keranjang</button>
+                                    <% } %>
+                                </div>
+                            </div>
+                        </div>`));
+                    }else{
+                        $('#kantin').html(`<div class="col-md-12 text-center">
+                            <span>Tidak ada item</span>
+                        </div>`);                        
+                    }
+                }
+            },
+            error: function () {
+                $('.list').show();
+                $('#kantin').html(`<div class="col-md-12 text-center">
+                            <span>Tidak ada item</span>
+                        </div>`);                        
+                $('.loading').hide();
+            }
+        });
+    }
+    items()
+</script>
+<%- include('./layouts/footer'); %>
