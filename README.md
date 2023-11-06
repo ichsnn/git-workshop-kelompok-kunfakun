@@ -1,5 +1,5 @@
 # Hoceen
-Hoceen adalah (Honesty Canteen) sebuah aplikasi kantin kejujuran 
+Hoceen adalah (Honesty Canteen) sebuah aplikasi kantin Kunfakun 
 dibuat untuk seleksi Compfest Software Engineering Academy 14 
 
 
